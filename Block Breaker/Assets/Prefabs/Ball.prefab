@@ -262,7 +262,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingVelocity: {x: 2, y: 15}
-  randomFactor: 0.2
+  randomFactor: 0
+  ballSpeed: 15
   bounceSounds:
   - {fileID: 8300000, guid: f9fa7ec71878938449939f398414d7ba, type: 3}
   - {fileID: 8300000, guid: 76c3e3022885eaa44a705a38fb68ea9f, type: 3}

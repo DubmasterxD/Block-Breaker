@@ -172,6 +172,7 @@ MonoBehaviour:
   gameSpeed: 1.25
   score: 0
   scoreText: {fileID: 9065168833394052570}
+  isAutoPlayEnabled: 0
 --- !u!1 &3347415640502688693
 GameObject:
   m_ObjectHideFlags: 0

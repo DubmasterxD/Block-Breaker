@@ -2,7 +2,7 @@
 
 public class Level : MonoBehaviour
 {
-    int breakableBlocksLeft = 0;
+    [SerializeField] int breakableBlocksLeft = 0;
     SceneLoader sceneLoader;
 
     private void Awake()

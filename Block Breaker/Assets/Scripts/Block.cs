@@ -46,6 +46,7 @@ public class Block : MonoBehaviour
     {
         GameObject block = Instantiate(nextBlock, transform.position, transform.rotation);
         block.GetComponent<Block>().SetPoints(pointsForDestroying);
+        level.BlockDestroyed();
         Destroy(gameObject);
     }
 
