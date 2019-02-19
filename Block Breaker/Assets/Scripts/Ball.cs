@@ -1,31 +1,38 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
+    // Variables
+    [SerializeField] Vector2 startingVelocity = new Vector2(2f, 15f);
+    [SerializeField] float randomFactor = 2f;
+    [SerializeField] float ballSpeed = 15f;
+    Vector2 padToBallVector;
+    bool hasStarted = false;
 
-    [SerializeField] private Pad pad = null;
-    private Vector2 padToBallVector = new Vector2();
-    [SerializeField] private Vector2 startingVelocity = new Vector2(2f, 15f);
-    private bool hasStarted = false;
-    private AudioSource audioSource = null;
-    [SerializeField] private AudioClip[] bounceSounds;
-
-    // Start is called before the first frame update
-    void Start()
+    // References
+    Pad pad;
+    AudioSource audioSource;
+    Rigidbody2D rb2d;
+    [SerializeField] AudioClip[] bounceSounds = null;
+    
+    private void Start()
     {
+        pad = FindObjectOfType<Pad>();
         padToBallVector = transform.position - pad.transform.position;
         audioSource = GetComponent<AudioSource>();
+        rb2d = GetComponent<Rigidbody2D>();
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    private void Update()
     {
         if (!hasStarted)
         {
             LockBallToPad();
             LaunchOnMouseClick();
+        }
+        else
+        {
+            rb2d.velocity = rb2d.velocity.normalized * ballSpeed;
         }
     }
 
@@ -33,8 +40,8 @@ public class Ball : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0))
         {
+            rb2d.velocity = startingVelocity.normalized * ballSpeed;
             hasStarted = true;
-            GetComponent<Rigidbody2D>().velocity = startingVelocity;
         }
     }
 
@@ -46,10 +53,12 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Vector2 velocityTweak = new Vector2(Random.Range(0f, randomFactor), Random.Range(0f, randomFactor));
         if (hasStarted)
         {
             AudioClip clip = bounceSounds[Random.Range(0, bounceSounds.Length)];
             audioSource.PlayOneShot(clip);
+            rb2d.velocity += velocityTweak;
         }
     }
 }

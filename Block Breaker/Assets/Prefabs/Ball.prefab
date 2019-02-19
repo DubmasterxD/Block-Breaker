@@ -261,8 +261,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d57528bd967afd141afa9aa825b76aaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pad: {fileID: 0}
   startingVelocity: {x: 2, y: 15}
+  randomFactor: 0.2
   bounceSounds:
   - {fileID: 8300000, guid: f9fa7ec71878938449939f398414d7ba, type: 3}
   - {fileID: 8300000, guid: 76c3e3022885eaa44a705a38fb68ea9f, type: 3}

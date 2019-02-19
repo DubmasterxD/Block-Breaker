@@ -1,25 +1,34 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Pad : MonoBehaviour
 {
+    float screenWidthInUnits = 16f;
+    float padWidth = 3f;
+    Ball ball;
+    GameStatus gameStatus;
 
-    [SerializeField] private float screenWidthInUnits = 16f;
-    private float padWidth = 3f;
-
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-
+        gameStatus = FindObjectOfType<GameStatus>();
+        ball = FindObjectOfType<Ball>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        float mouseXPosition = Input.mousePosition.x / Screen.width * screenWidthInUnits - screenWidthInUnits / 2;
-        Vector2 PadPos = new Vector2(transform.position.x, transform.position.y);
-        PadPos.x = Mathf.Clamp(mouseXPosition, (padWidth - screenWidthInUnits) / 2, (screenWidthInUnits - padWidth) / 2);
-        transform.position = PadPos;
+        Vector2 currPadPos = new Vector2(transform.position.x, transform.position.y);
+        currPadPos.x = Mathf.Clamp(GetXPos(), (padWidth - screenWidthInUnits) / 2, (screenWidthInUnits - padWidth) / 2);
+        transform.position = currPadPos;
+    }
+
+    private float GetXPos()
+    {
+        if(gameStatus.IsAutoPlayEnabled())
+        {
+            return ball.transform.position.x;
+        }
+        else
+        {
+            return Input.mousePosition.x / Screen.width * screenWidthInUnits - screenWidthInUnits / 2;
+        }
     }
 }
